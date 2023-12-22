@@ -5,8 +5,11 @@ const formSearch = document.querySelector(".form-search");
 const error = document.querySelector(".error");
 const selected = document.querySelector("#selected")
 error.style.display = "none";
-let searchForm;
+let keywords;
 let selectedForm;
+let keyword;
+let key;
+let categories;
 
 formSearch.addEventListener("submit", handleSubmit);
 
@@ -14,10 +17,17 @@ function handleSubmit(event) {
     event.preventDefault();
 
    const { search } = event.currentTarget.elements;
-   searchForm = search.value;
-//    console.log(search)
+   key = {
+    keywords: search.value,
+   }
+   localStorage.setItem("SaveFilters", JSON.stringify(key.keywords) || null);
+   localStorage.setItem("savetext", key.keywords);
+//    console.log(searchForm)
    productsRender()
 }
+
+formSearch.elements.search.value = localStorage.getItem("savetext");
+
 productsRender()
 
 selected.addEventListener("change", handleChange);
@@ -26,8 +36,16 @@ function handleChange(event) {
    const selecteds = event.target.value;
    selectedForm = selecteds;
     console.log(selected.value)
+    categories = {
+        selectedForm: selecteds,
+    }
+   localStorage.setItem("SaveCategpries", JSON.stringify(categories.selectedForm) || null);
+   localStorage.setItem("saveselected", categories.selectedForm);
+   console.log(categories.selectedForm)
     productsRender()
 }
+
+formSearch.elements.selecteds.value = localStorage.getItem("saveselected");
 
 async function productsRender() {
     try {
@@ -36,6 +54,8 @@ async function productsRender() {
         console.log(data.results)
         if (data.results.length === 0) {
             error.style.display = "block"
+        } else {
+            error.style.display = "none"
         }
         // console.log(data.results)
         // list.innerHTML = createmarkup(data.results);
@@ -45,22 +65,32 @@ async function productsRender() {
     }
 }
 
-async function productsApi(page = 1) {
-    const keyword = searchForm;
-    let category = selectedForm;
-    // const params = URLSearchParams({
-    //     keyword: searchForm,
+async function productsApi(page = 1, limit = 6) {
+    keyword = keywords || null;
+    let category = selectedForm || null;
+    // const params =new URLSearchParams({
+    //     // keyword: searchForm,
+    //     keyword,
+    //     category,
+    //     page: 1,
     // }) 
     const BASE_URL = `https://food-boutique.b.goit.study/api/products`;
-    const SRC = `keyword=`
+    // const SRC = `keyword=`
     try {
     const data = await axios(`${BASE_URL}?`, {
         params: {
-            keyword,
-            category,
-            page: 2,
+            keyword: JSON.parse(localStorage.getItem("SaveFilters")),
+            category: JSON.parse(localStorage.getItem("SaveCategpries")),
+            page: 1,
+            limit: 6,
         }
     });
+    // let filterSave = {
+    //     keyword, 
+    //     category, 
+    //     page, 
+    //     limit,
+    // }
     console.log(category)
     console.log(data)
     console.log(data.data)
