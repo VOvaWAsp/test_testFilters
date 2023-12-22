@@ -21,12 +21,12 @@ function handleSubmit(event) {
     keywords: search.value,
    }
    localStorage.setItem("SaveFilters", JSON.stringify(key.keywords) || null);
-   localStorage.setItem("savetext", key.keywords);
+//    localStorage.setItem("savetext", key.keywords);
 //    console.log(searchForm)
    productsRender()
 }
 
-formSearch.elements.search.value = localStorage.getItem("savetext");
+// formSearch.elements.search.value = localStorage.getItem("savetext");
 
 productsRender()
 
@@ -40,18 +40,18 @@ function handleChange(event) {
         selectedForm: selecteds,
     }
    localStorage.setItem("SaveCategpries", JSON.stringify(categories.selectedForm) || null);
-   localStorage.setItem("saveselected", categories.selectedForm);
-   console.log(categories.selectedForm)
+//    localStorage.setItem("saveselected", categories.selectedForm);
+//    console.log(categories.selectedForm)
     productsRender()
 }
 
-formSearch.elements.selecteds.value = localStorage.getItem("saveselected");
+// formSearch.elements.selecteds.value = localStorage.getItem("saveselected");
 
 async function productsRender() {
     try {
         const data = await productsApi();
         // const res = await categoriesApi();
-        console.log(data.results)
+        // console.log(data.results)
         if (data.results.length === 0) {
             error.style.display = "block"
         } else {
@@ -91,9 +91,9 @@ async function productsApi(page = 1, limit = 6) {
     //     page, 
     //     limit,
     // }
-    console.log(category)
-    console.log(data)
-    console.log(data.data)
+    // console.log(category)
+    // console.log(data)
+    // console.log(data.data)
     return data.data;
     } catch (error) {
         console.log(error)
