@@ -23,3 +23,52 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
+.list {
+margin: 15px;
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+gap: 20px;
+}
+
+.list-product {
+width: calc((100% - 60px) / 3);
+display: flex;
+justify-content: center;
+border-radius: 20px;
+background: #FAFAFA;
+}
+
+.item-product {
+width: 295px;
+height: 340px;
+}
+
+.img-product {
+width: 255px;
+height: 178px;
+flex-shrink: 0;
+border-radius: 10px;
+background: #E8E8E2;
+}
+
+.caption-product {
+color: #010101;
+font-family: Neue Montreal;
+font-size: 20px;
+font-style: normal;
+font-weight: 500;
+line-height: 24px; /* 120% */
+padding-top: 20px;
+}
+
+.price-product {
+color: #010101;
+font-family: Neue Montreal;
+font-size: 20px;
+font-style: normal;
+font-weight: 500;
+line-height: 24px; /* 120% */
+padding-top: 30px;
+}
